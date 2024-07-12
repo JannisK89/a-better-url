@@ -1,0 +1,16 @@
+{
+  "name": "a-better-url-maker",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.3"
+  },
+  "scripts": {
+    "build": "tsup index.ts --minify --format cjs,esm --dts"
+  }
+}
