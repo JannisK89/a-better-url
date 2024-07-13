@@ -1,15 +1,27 @@
-# a-better-url-maker
+# Better URL
 
-To install dependencies:
+A simpler way to manage URLs in your project.
 
-```bash
-bun install
-```
+## Installation
 
-To run:
+### NPM
 
 ```bash
-bun run index.ts
+npm install @jannisk89/better-url
 ```
 
-This project was created using `bun init` in bun v1.0.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### Bun
+
+```bash
+bun install @jannisk89/better-url
+```
+
+## Usage
+
+```javascript
+// TODO
+```
+
+## Features
+
+TODO
