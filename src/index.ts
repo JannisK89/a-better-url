@@ -3,7 +3,7 @@ export type BURL = {
   directories: string[]
   params: Record<string, string>
   url(): string
-  overrideParams(params: Record<string, string>): BURL
+  overrideParams(params: Record<string, string>): void
   options: Options
 }
 
@@ -21,8 +21,8 @@ function mergeOptions(options?: Options): Options {
 
 export function bURL(
   base: string,
-  directories: string[],
-  params: Record<string, string>,
+  directories: string[] = [],
+  params: Record<string, string> = {},
   options?: Options
 ): BURL {
   const finalizedOptions = mergeOptions(options)
@@ -37,7 +37,7 @@ export function bURL(
 }
 
 function url(this: BURL) {
-  return `${this.base}/${this.directories.join('/')}?${Object.entries(
+  return `${this.base}/${this.directories.join('/')}${Object.keys(this.params).length !== 0 ? '?' : ''}${Object.entries(
     this.params
   )
     .map(
@@ -48,5 +48,6 @@ function url(this: BURL) {
 }
 
 function overrideParams(this: BURL, params: Record<string, string>) {
-  return bURL(this.base, this.directories, { ...this.params, ...params })
+  const newParams = { ...this.params, ...params }
+  this.params = newParams
 }

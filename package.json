@@ -7,6 +7,7 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@types/bun": "^1.1.6",
     "bun-types": "latest",
     "eslint": "9.x",
     "globals": "^15.8.0",
@@ -15,6 +16,6 @@
     "typescript-eslint": "^7.16.0"
   },
   "scripts": {
-    "build": "tsup index.ts --minify --format cjs,esm --dts"
+    "build": "tsup src/index.ts --minify --format cjs,esm --dts"
   }
 }
