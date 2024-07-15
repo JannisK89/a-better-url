@@ -19,7 +19,7 @@ test('url builds correct URLs', () => {
   expect(test4.url()).toBe('https://janniskaranikis.dev/testing')
 })
 
-test('overrideParams correctly overides paramteters', () => {
+test('updateParams correctly updates paramteters', () => {
   const test1 = bURL('https://janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',

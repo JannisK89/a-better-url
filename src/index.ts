@@ -31,23 +31,28 @@ export function bURL(
     directories,
     params,
     url: url,
-    overrideParams: overrideParams,
+    overrideParams: updateParams,
     options: finalizedOptions,
   }
 }
 
 function url(this: BURL) {
-  return `${this.base}/${this.directories.join('/')}${Object.keys(this.params).length !== 0 ? '?' : ''}${Object.entries(
-    this.params
-  )
-    .map(
-      ([k, v]) =>
-        `${k}=${this.options.encodeParams ? encodeURIComponent(v) : v}`
-    )
-    .join('&')}`
+  const directories = `${this.base}/${this.directories.join('/')}`
+  let params = ''
+
+  if (Object.keys(this.params).length !== 0) {
+    params = `?${Object.entries(this.params)
+      .map(
+        ([k, v]) =>
+          `${k}=${this.options.encodeParams ? encodeURIComponent(v) : v}`
+      )
+      .join('&')}`
+  }
+
+  return `${directories}${params}`
 }
 
-function overrideParams(this: BURL, params: Record<string, string>) {
+function updateParams(this: BURL, params: Record<string, string>) {
   const newParams = { ...this.params, ...params }
   this.params = newParams
 }
