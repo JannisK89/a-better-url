@@ -2,14 +2,14 @@ import { expect, test } from 'bun:test'
 import { bURL } from '../src'
 
 test('url builds correct URLs', () => {
-  const test1 = bURL('https://janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
-  const test2 = bURL('https://janniskaranikis.dev')
-  const test3 = bURL('https://janniskaranikis.dev', void 0, { testing: 'true' })
-  const test4 = bURL('https://janniskaranikis.dev', ['testing'])
+  const test2 = bURL('janniskaranikis.dev')
+  const test3 = bURL('janniskaranikis.dev', void 0, { testing: 'true' })
+  const test4 = bURL('janniskaranikis.dev', ['testing'])
 
   expect(test1.url()).toBe(
     'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
@@ -20,13 +20,13 @@ test('url builds correct URLs', () => {
 })
 
 test('updateParams correctly updates paramteters', () => {
-  const test1 = bURL('https://janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
   const test2 = bURL(
-    'https://janniskaranikis.dev',
+    'janniskaranikis.dev',
     ['api', 'v1', 'something'],
     {
       firstName: 'Jane',
@@ -45,4 +45,14 @@ test('updateParams correctly updates paramteters', () => {
   expect(test2.url()).toBe(
     'https://janniskaranikis.dev/api/v1/something?firstName=J%C3%B6%C3%A4%C3%A5&lastName=D%C3%A5%C3%A4%C3%B6&age=20'
   )
+})
+
+test('Options tests', () => {
+  const test1 = bURL('janniskaranikis.dev', void 0, void 0, { HTTPS: false })
+  const test2 = bURL('janniskaranikis.dev', void 0, void 0, { HTTPS: true })
+  const test3 = bURL('janniskaranikis.dev')
+
+  expect(test1.url()).toBe('http://janniskaranikis.dev/')
+  expect(test2.url()).toBe('https://janniskaranikis.dev/')
+  expect(test3.url()).toBe('https://janniskaranikis.dev/')
 })
