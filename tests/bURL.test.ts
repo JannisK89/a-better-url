@@ -78,7 +78,25 @@ test('getDirectories and getDirectoriesFlat tests', () => {
   const test2 = bURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
 
   expect(test1.getDirectories()).toEqual(['api', 'v1', 'testing'])
-  expect(test2.getDirectories()).toEqual(['api', 'v1', 'testing'])
-  expect(test1.getDirectoriesFlat()).toBe('api/v2/testing')
+  expect(test2.getDirectories()).toEqual(['api', 'v2', 'testing'])
+  expect(test1.getDirectoriesFlat()).toBe('api/v1/testing')
   expect(test2.getDirectoriesFlat()).toBe('api/v2/testing')
+})
+
+test('getParams and getParamsFlat tests', () => {
+  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: '25',
+  })
+  const test2 = bURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+
+  expect(test1.getParams()).toEqual({
+    firstName: 'John',
+    lastName: 'Doe',
+    age: '25',
+  })
+  expect(test2.getParams()).toEqual({})
+  expect(test1.getParamsFlat()).toBe('firstName=John&lastName=Doe&age=25')
+  expect(test2.getParamsFlat()).toBe('')
 })

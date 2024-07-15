@@ -6,6 +6,8 @@ export type BURL = {
   overrideParams(params: Record<string, string>): void
   getDirectories(): string[]
   getDirectoriesFlat(): string
+  getParams(): Record<string, string>
+  getParamsFlat(): string
   options: Options
 }
 
@@ -40,6 +42,8 @@ export function bURL(
     overrideParams: updateParams,
     getDirectories: getDirectories,
     getDirectoriesFlat: getDirectoriesFlat,
+    getParams: getParams,
+    getParamsFlat: getParamsFlat,
     options: finalizedOptions,
   }
 }
@@ -70,4 +74,16 @@ function getDirectories(this: BURL) {
   return this.directories
 }
 
-function
+function getDirectoriesFlat(this: BURL) {
+  return this.directories.join('/')
+}
+
+function getParams(this: BURL) {
+  return this.params
+}
+
+function getParamsFlat(this: BURL) {
+  return Object.entries(this.params)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&')
+}
