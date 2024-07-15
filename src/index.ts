@@ -10,11 +10,13 @@ export type BURL = {
 type Options = {
   encodeParams?: boolean
   HTTPS?: boolean
+  www?: boolean
 }
 
 const defaultOptions: Options = {
   encodeParams: false,
   HTTPS: true,
+  www: false,
 }
 
 function mergeOptions(options?: Options): Options {
@@ -39,7 +41,7 @@ export function bURL(
 }
 
 function url(this: BURL) {
-  const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.base}/`
+  const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}/`
   const directories = `${this.directories.join('/')}`
   let params = ''
 

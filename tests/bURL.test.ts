@@ -48,11 +48,23 @@ test('updateParams correctly updates paramteters', () => {
 })
 
 test('Options tests', () => {
-  const test1 = bURL('janniskaranikis.dev', void 0, void 0, { HTTPS: false })
-  const test2 = bURL('janniskaranikis.dev', void 0, void 0, { HTTPS: true })
-  const test3 = bURL('janniskaranikis.dev')
+  const httpsTest1 = bURL('janniskaranikis.dev', void 0, void 0, {
+    HTTPS: false,
+  })
+  const httpsTest2 = bURL('janniskaranikis.dev', void 0, void 0, {
+    HTTPS: true,
+  })
+  const httpsTest3 = bURL('janniskaranikis.dev')
+  const wwwTest1 = bURL('janniskaranikis.dev', void 0, void 0, {
+    www: true,
+  })
+  const wwwTest2 = bURL('janniskaranikis.dev', void 0, void 0, {
+    www: false,
+  })
 
-  expect(test1.url()).toBe('http://janniskaranikis.dev/')
-  expect(test2.url()).toBe('https://janniskaranikis.dev/')
-  expect(test3.url()).toBe('https://janniskaranikis.dev/')
+  expect(httpsTest1.url()).toBe('http://janniskaranikis.dev/')
+  expect(httpsTest2.url()).toBe('https://janniskaranikis.dev/')
+  expect(httpsTest3.url()).toBe('https://janniskaranikis.dev/')
+  expect(wwwTest1.url()).toBe('https://www.janniskaranikis.dev/')
+  expect(wwwTest2.url()).toBe('https://janniskaranikis.dev/')
 })
