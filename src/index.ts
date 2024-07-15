@@ -4,6 +4,8 @@ export type BURL = {
   params: Record<string, string>
   url(): string
   overrideParams(params: Record<string, string>): void
+  getDirectories(): string[]
+  getDirectoriesFlat(): string
   options: Options
 }
 
@@ -36,6 +38,8 @@ export function bURL(
     params,
     url: url,
     overrideParams: updateParams,
+    getDirectories: getDirectories,
+    getDirectoriesFlat: getDirectoriesFlat,
     options: finalizedOptions,
   }
 }
@@ -61,3 +65,9 @@ function updateParams(this: BURL, params: Record<string, string>) {
   const newParams = { ...this.params, ...params }
   this.params = newParams
 }
+
+function getDirectories(this: BURL) {
+  return this.directories
+}
+
+function

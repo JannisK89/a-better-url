@@ -68,3 +68,17 @@ test('Options tests', () => {
   expect(wwwTest1.url()).toBe('https://www.janniskaranikis.dev/')
   expect(wwwTest2.url()).toBe('https://janniskaranikis.dev/')
 })
+
+test('getDirectories and getDirectoriesFlat tests', () => {
+  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: '25',
+  })
+  const test2 = bURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+
+  expect(test1.getDirectories()).toEqual(['api', 'v1', 'testing'])
+  expect(test2.getDirectories()).toEqual(['api', 'v1', 'testing'])
+  expect(test1.getDirectoriesFlat()).toBe('api/v2/testing')
+  expect(test2.getDirectoriesFlat()).toBe('api/v2/testing')
+})
