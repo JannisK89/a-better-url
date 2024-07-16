@@ -1,4 +1,4 @@
-# Better URL
+# aBURL - A Better URL
 
 A simpler way to manage URLs in your project.
 
@@ -7,13 +7,13 @@ A simpler way to manage URLs in your project.
 ### NPM
 
 ```bash
-npm install @jannisk89/better-url
+npm install aBURL
 ```
 
 ### Bun
 
 ```bash
-bun install @jannisk89/better-url
+bun install aBURL
 ```
 
 ## Usage

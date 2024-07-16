@@ -1,15 +1,15 @@
 import { expect, test } from 'bun:test'
-import { bURL } from '../src'
+import { aBURL } from '../src'
 
 test('url builds correct URLs', () => {
-  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
-  const test2 = bURL('janniskaranikis.dev')
-  const test3 = bURL('janniskaranikis.dev', void 0, { testing: 'true' })
-  const test4 = bURL('janniskaranikis.dev', ['testing'])
+  const test2 = aBURL('janniskaranikis.dev')
+  const test3 = aBURL('janniskaranikis.dev', void 0, { testing: 'true' })
+  const test4 = aBURL('janniskaranikis.dev', ['testing'])
 
   expect(test1.url()).toBe(
     'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
@@ -20,12 +20,12 @@ test('url builds correct URLs', () => {
 })
 
 test('updateParams correctly updates paramteters', () => {
-  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
-  const test2 = bURL(
+  const test2 = aBURL(
     'janniskaranikis.dev',
     ['api', 'v1', 'something'],
     {
@@ -48,17 +48,17 @@ test('updateParams correctly updates paramteters', () => {
 })
 
 test('Options tests', () => {
-  const httpsTest1 = bURL('janniskaranikis.dev', void 0, void 0, {
+  const httpsTest1 = aBURL('janniskaranikis.dev', void 0, void 0, {
     HTTPS: false,
   })
-  const httpsTest2 = bURL('janniskaranikis.dev', void 0, void 0, {
+  const httpsTest2 = aBURL('janniskaranikis.dev', void 0, void 0, {
     HTTPS: true,
   })
-  const httpsTest3 = bURL('janniskaranikis.dev')
-  const wwwTest1 = bURL('janniskaranikis.dev', void 0, void 0, {
+  const httpsTest3 = aBURL('janniskaranikis.dev')
+  const wwwTest1 = aBURL('janniskaranikis.dev', void 0, void 0, {
     www: true,
   })
-  const wwwTest2 = bURL('janniskaranikis.dev', void 0, void 0, {
+  const wwwTest2 = aBURL('janniskaranikis.dev', void 0, void 0, {
     www: false,
   })
 
@@ -70,12 +70,12 @@ test('Options tests', () => {
 })
 
 test('getDirectories and getDirectoriesFlat tests', () => {
-  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
-  const test2 = bURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+  const test2 = aBURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
 
   expect(test1.getDirectories()).toEqual(['api', 'v1', 'testing'])
   expect(test2.getDirectories()).toEqual(['api', 'v2', 'testing'])
@@ -84,12 +84,12 @@ test('getDirectories and getDirectoriesFlat tests', () => {
 })
 
 test('getParams and getParamsFlat tests', () => {
-  const test1 = bURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
     firstName: 'John',
     lastName: 'Doe',
     age: '25',
   })
-  const test2 = bURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+  const test2 = aBURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
 
   expect(test1.getParams()).toEqual({
     firstName: 'John',

@@ -1,4 +1,4 @@
-export type BURL = {
+export type ABURL = {
   base: string
   directories: string[]
   params: Record<string, string>
@@ -27,12 +27,12 @@ function mergeOptions(options?: Options): Options {
   return { ...defaultOptions, ...options }
 }
 
-export function bURL(
+export function aBURL(
   base: string,
   directories: string[] = [],
   params: Record<string, string> = {},
   options?: Options
-): BURL {
+): ABURL {
   const finalizedOptions = mergeOptions(options)
   return {
     base,
@@ -48,7 +48,7 @@ export function bURL(
   }
 }
 
-function url(this: BURL) {
+function url(this: ABURL) {
   const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}/`
   const directories = `${this.directories.join('/')}`
   let params = ''
@@ -65,24 +65,24 @@ function url(this: BURL) {
   return `${base}${directories}${params}`
 }
 
-function updateParams(this: BURL, params: Record<string, string>) {
+function updateParams(this: ABURL, params: Record<string, string>) {
   const newParams = { ...this.params, ...params }
   this.params = newParams
 }
 
-function getDirectories(this: BURL) {
+function getDirectories(this: ABURL) {
   return this.directories
 }
 
-function getDirectoriesFlat(this: BURL) {
+function getDirectoriesFlat(this: ABURL) {
   return this.directories.join('/')
 }
 
-function getParams(this: BURL) {
+function getParams(this: ABURL) {
   return this.params
 }
 
-function getParamsFlat(this: BURL) {
+function getParamsFlat(this: ABURL) {
   return Object.entries(this.params)
     .map(([k, v]) => `${k}=${v}`)
     .join('&')
