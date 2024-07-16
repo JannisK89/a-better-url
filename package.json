@@ -5,7 +5,9 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "repository": "https://github.com/JannisK89/a-better-url",
+  "repository": {
+    "url": "https://github.com/JannisK89/a-better-url"
+  },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@types/bun": "^1.1.6",
