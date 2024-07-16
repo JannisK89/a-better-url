@@ -13,5 +13,5 @@ jobs:
 
       - run: bun install
       - run: bunx tsc
-      - run: bun build
+      - run: bun run build
       - run: bun test
