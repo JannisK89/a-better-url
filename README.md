@@ -7,21 +7,21 @@ A simpler way to manage URLs in your project.
 ### NPM
 
 ```bash
-npm install aBURL
+npm install a-better-url
 ```
 
 ### Bun
 
 ```bash
-bun install aBURL
+bun install a-better-url
 ```
 
 ## Usage
 
 ```javascript
-// TODO
+// COMING SOON
 ```
 
 ## Features
 
-TODO
+COMING SOON
