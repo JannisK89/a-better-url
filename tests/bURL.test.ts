@@ -36,14 +36,44 @@ test('updateParams correctly updates paramteters', () => {
     { encodeParams: true }
   )
 
-  test1.overrideParams({ firstName: 'Jane', age: '30' })
-  test2.overrideParams({ firstName: 'Jöäå', lastName: 'Dåäö', age: '20' })
+  test1.updateParams({ firstName: 'Jane', age: '30' })
+  test2.updateParams({ firstName: 'Jöäå', lastName: 'Dåäö', age: '20' })
 
   expect(test1.url()).toBe(
     'https://janniskaranikis.dev/api/v1/testing?firstName=Jane&lastName=Doe&age=30'
   )
   expect(test2.url()).toBe(
     'https://janniskaranikis.dev/api/v1/something?firstName=J%C3%B6%C3%A4%C3%A5&lastName=D%C3%A5%C3%A4%C3%B6&age=20'
+  )
+})
+
+test('removeParams correctly removes paramteters', () => {
+  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: '25',
+  })
+  const test2 = aBURL('janniskaranikis.dev', ['api', 'v1', 'something'], {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    age: '21',
+  })
+  const test3 = aBURL('janniskaranikis.dev', ['api', 'v1', 'users'], {
+    firstName: 'Romeo',
+    lastName: 'Juliet',
+    age: '41',
+  })
+
+  test1.removeParams(['firstName', 'age'])
+  test2.removeParams(['firstName', 'age', 'lastName'])
+  test3.removeParams(['FirstName', 'age', 'LastName'])
+
+  expect(test1.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?lastName=Doe'
+  )
+  expect(test2.url()).toBe('https://janniskaranikis.dev/api/v1/something')
+  expect(test3.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/users?firstName=Romeo&lastName=Juliet'
   )
 })
 

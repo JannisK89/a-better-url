@@ -3,7 +3,8 @@ export type ABURL = {
   directories: string[]
   params: Record<string, string>
   url(): string
-  overrideParams(params: Record<string, string>): void
+  updateParams(params: Record<string, string>): void
+  removeParams(params: string[]): void
   getDirectories(): string[]
   getDirectoriesFlat(): string
   getParams(): Record<string, string>
@@ -39,7 +40,8 @@ export function aBURL(
     directories,
     params,
     url: url,
-    overrideParams: updateParams,
+    updateParams: updateParams,
+    removeParams: removeParams,
     getDirectories: getDirectories,
     getDirectoriesFlat: getDirectoriesFlat,
     getParams: getParams,
@@ -68,6 +70,12 @@ function url(this: ABURL) {
 function updateParams(this: ABURL, params: Record<string, string>) {
   const newParams = { ...this.params, ...params }
   this.params = newParams
+}
+
+function removeParams(this: ABURL, params: string[]) {
+  params.forEach((param) => {
+    delete this.params[param]
+  })
 }
 
 function getDirectories(this: ABURL) {
