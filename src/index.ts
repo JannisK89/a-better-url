@@ -42,8 +42,10 @@ function mergeOptions(options?: Options): Options {
  * @example
  * const bURL = aBURL('example.com', ['api', 'v1', 'testing'], { firstName: 'John', lastName: 'Doe', age: '25' });
  * console.log(bURL.url()); // Logs: 'https://example.com/api/v1/testing?firstName=John&lastName=Doe&age=25'
+ *
+ * @function url - Returns the full URL as a string"
  */
-export function aBURL(
+export default function aBURL(
   base: string,
   directories: string[] = [],
   params: Record<string, string> = {},
@@ -65,10 +67,6 @@ export function aBURL(
   }
 }
 
-/**
- * Builds the URL from the base, directories, and parameters.
- * @returns {string} The URL fully concatenated as a string.
- */
 function url(this: ABURL) {
   const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}/`
   const directories = `${this.directories.join('/')}`

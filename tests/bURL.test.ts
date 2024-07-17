@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { aBURL } from '../src'
+import aBURL from '../src'
 
 test('url builds correct URLs', () => {
   const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
