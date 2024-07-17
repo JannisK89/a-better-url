@@ -28,6 +28,21 @@ function mergeOptions(options?: Options): Options {
   return { ...defaultOptions, ...options }
 }
 
+/**
+ * aBURL - A Better URL
+ *
+ * Create a URL object that can be used to build URLs without having to worry about string concatenation.
+ *
+ * @param {string} base - The base URL in the format of 'subDomain.example.com' or 'example.com'
+ * @param {string[]} [directories] - An array of directories that will be concatenated to the base URL using '/'
+ * @param {Record<string, string>} [params] - An object of parameters that will be added to the URL as query parameters
+ * @param {Options} [options] - An object of options that can be used to modify the behavior of the URL
+ * @returns {ABURL} The ABURL object
+ *
+ * @example
+ * const bURL = aBURL('example.com', ['api', 'v1', 'testing'], { firstName: 'John', lastName: 'Doe', age: '25' });
+ * console.log(bURL.url()); // Logs: 'https://example.com/api/v1/testing?firstName=John&lastName=Doe&age=25'
+ */
 export function aBURL(
   base: string,
   directories: string[] = [],
@@ -50,6 +65,10 @@ export function aBURL(
   }
 }
 
+/**
+ * Builds the URL from the base, directories, and parameters.
+ * @returns {string} The URL fully concatenated as a string.
+ */
 function url(this: ABURL) {
   const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}/`
   const directories = `${this.directories.join('/')}`
