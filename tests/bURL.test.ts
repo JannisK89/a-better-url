@@ -2,14 +2,13 @@ import { expect, test } from 'bun:test'
 import aBURL from '../src'
 
 test('url builds correct URLs', () => {
-  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: '25',
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: '25' },
   })
   const test2 = aBURL('janniskaranikis.dev')
-  const test3 = aBURL('janniskaranikis.dev', void 0, { testing: 'true' })
-  const test4 = aBURL('janniskaranikis.dev', ['testing'])
+  const test3 = aBURL('janniskaranikis.dev', { params: { testing: 'true' } })
+  const test4 = aBURL('janniskaranikis.dev', { directories: ['testing'] })
 
   expect(test1.url()).toBe(
     'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
@@ -20,21 +19,15 @@ test('url builds correct URLs', () => {
 })
 
 test('updateParams correctly updates paramteters', () => {
-  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: '25',
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: '25' },
   })
-  const test2 = aBURL(
-    'janniskaranikis.dev',
-    ['api', 'v1', 'something'],
-    {
-      firstName: 'Jane',
-      lastName: 'Doe',
-      age: '21',
-    },
-    { encodeParams: true }
-  )
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'something'],
+    params: { firstName: 'Jane', lastName: 'Doe', age: '25' },
+    encodeParams: true,
+  })
 
   test1.updateParams({ firstName: 'Jane', age: '30' })
   test2.updateParams({ firstName: 'Jöäå', lastName: 'Dåäö', age: '20' })
@@ -48,20 +41,17 @@ test('updateParams correctly updates paramteters', () => {
 })
 
 test('removeParams correctly removes paramteters', () => {
-  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: '25',
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: '25' },
   })
-  const test2 = aBURL('janniskaranikis.dev', ['api', 'v1', 'something'], {
-    firstName: 'Jane',
-    lastName: 'Doe',
-    age: '21',
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'something'],
+    params: { firstName: 'Jane', lastName: 'Doe', age: '25' },
   })
-  const test3 = aBURL('janniskaranikis.dev', ['api', 'v1', 'users'], {
-    firstName: 'Romeo',
-    lastName: 'Juliet',
-    age: '41',
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'users'],
+    params: { firstName: 'Romeo', lastName: 'Juliet', age: '41' },
   })
 
   test1.removeParams(['firstName', 'age'])
@@ -78,17 +68,17 @@ test('removeParams correctly removes paramteters', () => {
 })
 
 test('Options tests', () => {
-  const httpsTest1 = aBURL('janniskaranikis.dev', void 0, void 0, {
+  const httpsTest1 = aBURL('janniskaranikis.dev', {
     HTTPS: false,
   })
-  const httpsTest2 = aBURL('janniskaranikis.dev', void 0, void 0, {
+  const httpsTest2 = aBURL('janniskaranikis.dev', {
     HTTPS: true,
   })
   const httpsTest3 = aBURL('janniskaranikis.dev')
-  const wwwTest1 = aBURL('janniskaranikis.dev', void 0, void 0, {
+  const wwwTest1 = aBURL('janniskaranikis.dev', {
     www: true,
   })
-  const wwwTest2 = aBURL('janniskaranikis.dev', void 0, void 0, {
+  const wwwTest2 = aBURL('janniskaranikis.dev', {
     www: false,
   })
 
@@ -100,12 +90,13 @@ test('Options tests', () => {
 })
 
 test('getDirectories and getDirectoriesFlat tests', () => {
-  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: '25',
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: '25' },
   })
-  const test2 = aBURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
 
   expect(test1.getDirectories()).toEqual(['api', 'v1', 'testing'])
   expect(test2.getDirectories()).toEqual(['api', 'v2', 'testing'])
@@ -114,12 +105,13 @@ test('getDirectories and getDirectoriesFlat tests', () => {
 })
 
 test('getParams and getParamsFlat tests', () => {
-  const test1 = aBURL('janniskaranikis.dev', ['api', 'v1', 'testing'], {
-    firstName: 'John',
-    lastName: 'Doe',
-    age: '25',
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: '25' },
   })
-  const test2 = aBURL('janniskaranikis.dev', ['api', 'v2', 'testing'])
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
 
   expect(test1.getParams()).toEqual({
     firstName: 'John',
