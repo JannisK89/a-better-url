@@ -1,18 +1,18 @@
 export type ABURL = {
   base: string
   url(): string
-  updateParams(params: Record<string, string>): void
+  updateParams(params: Record<string, string | number>): void
   removeParams(params: string[]): void
   getDirectories(): string[]
   getDirectoriesFlat(): string
-  getParams(): Record<string, string>
+  getParams(): Record<string, string | number>
   getParamsFlat(): string
   options: Options
 }
 
 type Options = {
   directories?: string[]
-  params?: Record<string, string>
+  params?: Record<string, string | number>
   encodeParams?: boolean
   HTTPS?: boolean
   www?: boolean
