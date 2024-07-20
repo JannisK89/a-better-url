@@ -40,6 +40,38 @@ test('updateParams correctly updates paramteters', () => {
   )
 })
 
+test('ToUpdateParams returns new ABURL object with updated params', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+  })
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'something'],
+    params: { firstName: 'Jane', lastName: 'Doe', age: 25 },
+    encodeParams: true,
+  })
+
+  const test1New = test1.toUpdatedParams({ firstName: 'Jane', age: 30 })
+  const test2New = test2.toUpdatedParams({
+    firstName: 'Jöäå',
+    lastName: 'Dåäö',
+    age: 20,
+  })
+
+  expect(test1.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test1New.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?firstName=Jane&lastName=Doe&age=30'
+  )
+  expect(test2.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/something?firstName=Jane&lastName=Doe&age=25'
+  )
+  expect(test2New.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/something?firstName=J%C3%B6%C3%A4%C3%A5&lastName=D%C3%A5%C3%A4%C3%B6&age=20'
+  )
+})
+
 test('removeParams correctly removes paramteters', () => {
   const test1 = aBURL('janniskaranikis.dev', {
     directories: ['api', 'v1', 'testing'],
@@ -63,6 +95,42 @@ test('removeParams correctly removes paramteters', () => {
   )
   expect(test2.url()).toBe('https://janniskaranikis.dev/api/v1/something')
   expect(test3.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/users?firstName=Romeo&lastName=Juliet'
+  )
+})
+
+test('toRemovedParams returns a new ABURL object with the params removed', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+  })
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'something'],
+    params: { firstName: 'Jane', lastName: 'Doe', age: '25' },
+  })
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'users'],
+    params: { firstName: 'Romeo', lastName: 'Juliet', age: '41' },
+  })
+
+  const test1New = test1.toRemovedParams(['firstName', 'age'])
+  const test2New = test2.toRemovedParams(['firstName', 'age', 'lastName'])
+  const test3New = test3.toRemovedParams(['FirstName', 'age', 'LastName'])
+
+  expect(test1.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test1New.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?lastName=Doe'
+  )
+  expect(test2.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/something?firstName=Jane&lastName=Doe&age=25'
+  )
+  expect(test2New.url()).toBe('https://janniskaranikis.dev/api/v1/something')
+  expect(test3.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/users?firstName=Romeo&lastName=Juliet&age=41'
+  )
+  expect(test3New.url()).toBe(
     'https://janniskaranikis.dev/api/v1/users?firstName=Romeo&lastName=Juliet'
   )
 })
