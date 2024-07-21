@@ -16,6 +16,13 @@ npm install a-better-url
 bun install a-better-url
 ```
 
+## Features
+
+- Less messy URL management compared to string concatenation
+- Easily add, remove, and update URL parameters
+- 0 Dependencies
+- TypeScript Support
+
 ## Usage
 
 ```javascript
@@ -38,13 +45,6 @@ exampleDotCom.updateParams({ firstName: 'John', lastName: 'Doe' })
 // Fetches from https://example.com/api/v1/users?limit=100&offset=0&firstName=John&lastName=Doe
 const user2 = await fetch(exampleDotCom.url())
 ```
-
-## Features
-
-- Less messy URL management compared to string concatenation
-- Easily add, remove, and update URL parameters
-- 0 Dependencies
-- TypeScript Support
 
 ## API
 
