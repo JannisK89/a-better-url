@@ -149,12 +149,14 @@ test('Options tests', () => {
   const wwwTest2 = aBURL('janniskaranikis.dev', {
     www: false,
   })
+  const portTest1 = aBURL('janniskaranikis.dev', { port: 3000 })
 
   expect(httpsTest1.url()).toBe('http://janniskaranikis.dev/')
   expect(httpsTest2.url()).toBe('https://janniskaranikis.dev/')
   expect(httpsTest3.url()).toBe('https://janniskaranikis.dev/')
   expect(wwwTest1.url()).toBe('https://www.janniskaranikis.dev/')
   expect(wwwTest2.url()).toBe('https://janniskaranikis.dev/')
+  expect(portTest1.url()).toBe('https://janniskaranikis.dev:3000/')
 })
 
 test('getDirectories and getDirectoriesFlat tests', () => {

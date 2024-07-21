@@ -18,6 +18,7 @@ type Options = {
   encodeParams?: boolean
   HTTPS?: boolean
   www?: boolean
+  port?: number | undefined
 }
 
 const defaultOptions: Options = {
@@ -26,6 +27,7 @@ const defaultOptions: Options = {
   encodeParams: false,
   HTTPS: true,
   www: false,
+  port: undefined,
 }
 
 function mergeOptions(options?: Options): Options {
@@ -67,7 +69,8 @@ export default function aBURL(base: string, options?: Options): ABURL {
 }
 
 function url(this: ABURL) {
-  const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}/`
+  const base = `${this.options.HTTPS ? 'https://' : 'http://'}${this.options.www ? 'www.' : ''}${this.base}`
+  const port = this.options.port ? `:${this.options.port}` : ''
   let directories = ''
   if (this.options.directories) {
     directories = `${this.options.directories.join('/')}`
@@ -83,7 +86,7 @@ function url(this: ABURL) {
       .join('&')}`
   }
 
-  return `${base}${directories}${params}`
+  return `${base}${port}/${directories}${params}`
 }
 
 function updateParams(this: ABURL, params: Record<string, string>) {

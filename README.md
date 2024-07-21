@@ -68,6 +68,7 @@ type Options = {
   encodeParams?: boolean
   HTTPS?: boolean
   www?: boolean
+  port: undefined | number
 }
 ```
 
@@ -76,6 +77,7 @@ type Options = {
 - `encodeParams` - A boolean that determines if the URL parameters should be encoded. Default is `true`.
 - `HTTPS` - A boolean that determines if the URL should use HTTPS. Default is `true`.
 - `www` - A boolean that determines if the URL should use `www`. Default is `false`.
+- `port` - A number that represents the port number. Default is `undefined` which means no port is added.
 
 ### ABURL
 
