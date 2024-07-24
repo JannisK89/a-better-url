@@ -68,7 +68,11 @@ type Options = {
   encodeParams?: boolean
   HTTPS?: boolean
   www?: boolean
-  port: undefined | number
+  port?: number
+  auth?: {
+    username: string
+    password: string
+  }
 }
 ```
 
@@ -78,6 +82,7 @@ type Options = {
 - `HTTPS` - A boolean that determines if the URL should use HTTPS. Default is `true`.
 - `www` - A boolean that determines if the URL should use `www`. Default is `false`.
 - `port` - A number that represents the port number. Default is `undefined` which means no port is added.
+- `auth` - An object that contains the username and password for basic authentication. Default is `undefined` which means no authentication is added.
 
 ### ABURL
 
