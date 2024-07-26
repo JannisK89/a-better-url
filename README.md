@@ -73,6 +73,7 @@ type Options = {
     username: string
     password: string
   }
+  subDomain?: string[]
 }
 ```
 
@@ -83,6 +84,7 @@ type Options = {
 - `www` - A boolean that determines if the URL should use `www`. Default is `false`.
 - `port` - A number that represents the port number. Default is `undefined` which means no port is added.
 - `auth` - An object that contains the username and password for basic authentication. Default is `undefined` which means no authentication is added.
+- `subDomain` - An array of strings that represent the subdomains in the URL. Default is `[]`.
 
 ### ABURL
 

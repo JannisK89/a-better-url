@@ -153,6 +153,12 @@ test('Options tests', () => {
   const authTest1 = aBURL('janniskaranikis.dev', {
     auth: { username: 'user', password: 'pass' },
   })
+  const subDomainTest1 = aBURL('janniskaranikis.dev', {
+    subDomain: ['subDomain'],
+  })
+  const subDomainTest2 = aBURL('janniskaranikis.dev', {
+    subDomain: ['subDomain', 'shop'],
+  })
 
   expect(httpsTest1.url()).toBe('http://janniskaranikis.dev/')
   expect(httpsTest2.url()).toBe('https://janniskaranikis.dev/')
@@ -161,6 +167,10 @@ test('Options tests', () => {
   expect(wwwTest2.url()).toBe('https://janniskaranikis.dev/')
   expect(portTest1.url()).toBe('https://janniskaranikis.dev:3000/')
   expect(authTest1.url()).toBe('https://user:pass@janniskaranikis.dev/')
+  expect(subDomainTest1.url()).toBe('https://subDomain.janniskaranikis.dev/')
+  expect(subDomainTest2.url()).toBe(
+    'https://subDomain.shop.janniskaranikis.dev/'
+  )
 })
 
 test('getDirectories and getDirectoriesFlat tests', () => {

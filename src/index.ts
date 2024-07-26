@@ -20,6 +20,7 @@ type Options = {
   www?: boolean
   port?: number
   auth?: { username: string; password: string }
+  subDomain?: string[]
 }
 
 const defaultOptions: Options = {
@@ -30,6 +31,7 @@ const defaultOptions: Options = {
   www: false,
   port: undefined,
   auth: undefined,
+  subDomain: [],
 }
 
 function mergeOptions(options?: Options): Options {
@@ -71,12 +73,20 @@ export default function aBURL(base: string, options?: Options): ABURL {
 }
 
 function url(this: ABURL) {
+  const scheme = this.options.HTTPS ? 'https://' : 'http://'
+  const www = this.options.www ? 'www.' : ''
+  const port = this.options.port ? `:${this.options.port}` : ''
   const auth =
     this.options.auth !== undefined
       ? `${this.options.auth.username}:${this.options.auth.password}@`
       : ''
-  const base = `${this.options.HTTPS ? 'https://' : 'http://'}${auth}${this.options.www ? 'www.' : ''}${this.base}`
-  const port = this.options.port ? `:${this.options.port}` : ''
+
+  let subDomain = ''
+
+  if (this.options.subDomain && this.options.subDomain.length !== 0) {
+    subDomain = `${this.options.subDomain.join('.')}.`
+  }
+
   let directories = ''
   if (this.options.directories) {
     directories = `${this.options.directories.join('/')}`
@@ -92,7 +102,7 @@ function url(this: ABURL) {
       .join('&')}`
   }
 
-  return `${base}${port}/${directories}${params}`
+  return `${scheme}${www}${auth}${subDomain}${this.base}${port}/${directories}${params}`
 }
 
 function updateParams(this: ABURL, params: Record<string, string>) {
