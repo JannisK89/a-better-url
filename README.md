@@ -74,6 +74,7 @@ type Options = {
     password: string
   }
   subDomain?: string[]
+  fragment?: string
 }
 ```
 
@@ -85,6 +86,7 @@ type Options = {
 - `port` - A number that represents the port number. Default is `undefined` which means no port is added.
 - `auth` - An object that contains the username and password for basic authentication. Default is `undefined` which means no authentication is added.
 - `subDomain` - An array of strings that represent the subdomains in the URL. Default is `[]`.
+- `fragment` - A string that represents the fragment in the URL. Default is `undefined` which means no fragment is added.
 
 ### ABURL
 

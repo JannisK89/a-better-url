@@ -159,6 +159,10 @@ test('Options tests', () => {
   const subDomainTest2 = aBURL('janniskaranikis.dev', {
     subDomain: ['subDomain', 'shop'],
   })
+  const fragmentTest1 = aBURL('janniskaranikis.dev', {
+    directories: ['about'],
+    fragment: 'testing',
+  })
 
   expect(httpsTest1.url()).toBe('http://janniskaranikis.dev/')
   expect(httpsTest2.url()).toBe('https://janniskaranikis.dev/')
@@ -171,6 +175,7 @@ test('Options tests', () => {
   expect(subDomainTest2.url()).toBe(
     'https://subDomain.shop.janniskaranikis.dev/'
   )
+  expect(fragmentTest1.url()).toBe('https://janniskaranikis.dev/about#testing')
 })
 
 test('getDirectories and getDirectoriesFlat tests', () => {

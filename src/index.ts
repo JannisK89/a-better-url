@@ -21,6 +21,7 @@ type Options = {
   port?: number
   auth?: { username: string; password: string }
   subDomain?: string[]
+  fragment?: string
 }
 
 const defaultOptions: Options = {
@@ -32,6 +33,7 @@ const defaultOptions: Options = {
   port: undefined,
   auth: undefined,
   subDomain: [],
+  fragment: undefined,
 }
 
 function mergeOptions(options?: Options): Options {
@@ -76,6 +78,7 @@ function url(this: ABURL) {
   const scheme = this.options.HTTPS ? 'https://' : 'http://'
   const www = this.options.www ? 'www.' : ''
   const port = this.options.port ? `:${this.options.port}` : ''
+  const fragment = this.options.fragment ? `#${this.options.fragment}` : ''
   const auth =
     this.options.auth !== undefined
       ? `${this.options.auth.username}:${this.options.auth.password}@`
@@ -102,7 +105,7 @@ function url(this: ABURL) {
       .join('&')}`
   }
 
-  return `${scheme}${www}${auth}${subDomain}${this.base}${port}/${directories}${params}`
+  return `${scheme}${www}${auth}${subDomain}${this.base}${port}/${directories}${params}${fragment}`
 }
 
 function updateParams(this: ABURL, params: Record<string, string>) {
