@@ -28,21 +28,23 @@ bun install a-better-url
 ```javascript
 import aBURL from 'a-better-url'
 
-const directories = ['api', 'v1', 'users']
-const params = { id: 1, limit: 100, offset: 0 }
+const options = {
+  directories: ['api', 'v1', 'users'],
+  params: { id: 1, limit: 100, offset: 0 },
+  subDomains: ['shop'],
+}
 
 const exampleDotCom = aBURL('example.com', {
-  directories: directories,
-  params: params,
+  ...options,
 })
 
-// Fetches from https://example.com/api/v1/users?id=1&limit=100&offset=0
+// Fetches from https://shop.example.com/api/v1/users?id=1&limit=100&offset=0
 const user1 = await fetch(exampleDotCom.url())
 
 exampleDotCom.removeParams(['id'])
 exampleDotCom.updateParams({ firstName: 'John', lastName: 'Doe' })
 
-// Fetches from https://example.com/api/v1/users?limit=100&offset=0&firstName=John&lastName=Doe
+// Fetches from https://shop.example.com/api/v1/users?limit=100&offset=0&firstName=John&lastName=Doe
 const user2 = await fetch(exampleDotCom.url())
 ```
 
@@ -73,7 +75,7 @@ type Options = {
     username: string
     password: string
   }
-  subDomain?: string[]
+  subDomains?: string[]
   fragment?: string
 }
 ```
@@ -85,7 +87,7 @@ type Options = {
 - `www` - A boolean that determines if the URL should use `www`. Default is `false`.
 - `port` - A number that represents the port number. Default is `undefined` which means no port is added.
 - `auth` - An object that contains the username and password for basic authentication. Default is `undefined` which means no authentication is added.
-- `subDomain` - An array of strings that represent the subdomains in the URL. Default is `[]`.
+- `subDomains` - An array of strings that represent the subdomains in the URL. Default is `[]`.
 - `fragment` - A string that represents the fragment in the URL. Default is `undefined` which means no fragment is added.
 
 ### ABURL

@@ -154,10 +154,10 @@ test('Options tests', () => {
     auth: { username: 'user', password: 'pass' },
   })
   const subDomainTest1 = aBURL('janniskaranikis.dev', {
-    subDomain: ['subDomain'],
+    subDomains: ['subDomain'],
   })
   const subDomainTest2 = aBURL('janniskaranikis.dev', {
-    subDomain: ['subDomain', 'shop'],
+    subDomains: ['subDomain', 'shop'],
   })
   const fragmentTest1 = aBURL('janniskaranikis.dev', {
     directories: ['about'],

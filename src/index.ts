@@ -20,7 +20,7 @@ type Options = {
   www?: boolean
   port?: number
   auth?: { username: string; password: string }
-  subDomain?: string[]
+  subDomains?: string[]
   fragment?: string
 }
 
@@ -32,7 +32,7 @@ const defaultOptions: Options = {
   www: false,
   port: undefined,
   auth: undefined,
-  subDomain: [],
+  subDomains: [],
   fragment: undefined,
 }
 
@@ -84,10 +84,10 @@ function url(this: ABURL) {
       ? `${this.options.auth.username}:${this.options.auth.password}@`
       : ''
 
-  let subDomain = ''
+  let subDomains = ''
 
-  if (this.options.subDomain && this.options.subDomain.length !== 0) {
-    subDomain = `${this.options.subDomain.join('.')}.`
+  if (this.options.subDomains && this.options.subDomains.length !== 0) {
+    subDomains = `${this.options.subDomains.join('.')}.`
   }
 
   let directories = ''
@@ -105,7 +105,7 @@ function url(this: ABURL) {
       .join('&')}`
   }
 
-  return `${scheme}${www}${auth}${subDomain}${this.base}${port}/${directories}${params}${fragment}`
+  return `${scheme}${www}${auth}${subDomains}${this.base}${port}/${directories}${params}${fragment}`
 }
 
 function updateParams(this: ABURL, params: Record<string, string>) {
