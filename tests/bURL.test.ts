@@ -211,3 +211,152 @@ test('getParams and getParamsFlat tests', () => {
   expect(test1.getParamsFlat()).toBe('firstName=John&lastName=Doe&age=25')
   expect(test2.getParamsFlat()).toBe('')
 })
+
+test('useHTTPS correctly switches between https and http', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+  })
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
+
+  test1.useHTTPS(false)
+  test2.useHTTPS(true)
+
+  expect(test1.url()).toBe(
+    'http://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test2.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})
+
+test('useWWW correctly switches between www and empty string', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+  })
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+    www: true,
+  })
+
+  test1.useWWW(true)
+  test2.useWWW(false)
+
+  expect(test1.url()).toBe(
+    'https://www.janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test2.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})
+
+test('setPort correctly changes or sets port', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+    port: 3000,
+  })
+
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
+
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+    port: 4000,
+  })
+
+  test1.setPort(4000)
+  test2.setPort(5000)
+  test3.setPort(undefined)
+
+  expect(test1.url()).toBe(
+    'https://janniskaranikis.dev:4000/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test2.url()).toBe('https://janniskaranikis.dev:5000/api/v2/testing')
+  expect(test3.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})
+
+test('setAuth changes or sets http auth', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+    auth: { username: 'user', password: 'pass' },
+  })
+
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
+
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+    auth: { username: 'user', password: 'pass' },
+  })
+
+  test1.setAuth({ username: 'user2', password: 'pass2' })
+  test2.setAuth({ username: 'user', password: 'pass' })
+  test3.setAuth(undefined)
+
+  expect(test1.url()).toBe(
+    'https://user2:pass2@janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test2.url()).toBe(
+    'https://user:pass@janniskaranikis.dev/api/v2/testing'
+  )
+  expect(test3.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})
+
+test('setSubdomains updates or sets subdomains', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+    subDomains: ['subDomain'],
+  })
+
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
+
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+    subDomains: ['subDomain', 'shop'],
+  })
+
+  test1.setSubDomains(['shop'])
+  test2.setSubDomains(['subDomain'])
+  test3.setSubDomains(undefined)
+
+  expect(test1.url()).toBe(
+    'https://shop.janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25'
+  )
+  expect(test2.url()).toBe(
+    'https://subDomain.janniskaranikis.dev/api/v2/testing'
+  )
+  expect(test3.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})
+
+test('setFragment updates or sets fragment', () => {
+  const test1 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v1', 'testing'],
+    params: { firstName: 'John', lastName: 'Doe', age: 25 },
+    fragment: 'testing',
+  })
+
+  const test2 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+  })
+
+  const test3 = aBURL('janniskaranikis.dev', {
+    directories: ['api', 'v2', 'testing'],
+    fragment: 'testing',
+  })
+
+  test1.setFragment('about')
+  test2.setFragment('about')
+  test3.setFragment(undefined)
+
+  expect(test1.url()).toBe(
+    'https://janniskaranikis.dev/api/v1/testing?firstName=John&lastName=Doe&age=25#about'
+  )
+  expect(test2.url()).toBe('https://janniskaranikis.dev/api/v2/testing#about')
+  expect(test3.url()).toBe('https://janniskaranikis.dev/api/v2/testing')
+})

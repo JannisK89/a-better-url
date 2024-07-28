@@ -9,6 +9,12 @@ export type ABURL = {
   getDirectoriesFlat(): string
   getParams(): Record<string, string | number>
   getParamsFlat(): string
+  setSubDomains(value: string[] | undefined): void
+  useWWW(value: boolean): void
+  useHTTPS(value: boolean): void
+  setPort(value: number | undefined): void
+  setAuth(value: { username: string; password: string } | undefined): void
+  setFragment(value: string | undefined): void
   options: Options
 }
 
@@ -70,6 +76,12 @@ export default function aBURL(base: string, options?: Options): ABURL {
     getDirectoriesFlat: getDirectoriesFlat,
     getParams: getParams,
     getParamsFlat: getParamsFlat,
+    setSubDomains: setSubDomains,
+    useWWW: useWWW,
+    useHTTPS: useHTTPS,
+    setPort: setPort,
+    setFragment: setFragment,
+    setAuth: setAuth,
     options: finalizedOptions,
   }
 }
@@ -164,4 +176,31 @@ function getParamsFlat(this: ABURL) {
   return Object.entries(this.options.params)
     .map(([k, v]) => `${k}=${v}`)
     .join('&')
+}
+
+function useHTTPS(this: ABURL, value: boolean) {
+  this.options.HTTPS = value
+}
+
+function useWWW(this: ABURL, value: boolean) {
+  this.options.www = value
+}
+
+function setPort(this: ABURL, value: number | undefined) {
+  this.options.port = value
+}
+
+function setAuth(
+  this: ABURL,
+  value: { username: string; password: string } | undefined
+) {
+  this.options.auth = value
+}
+
+function setSubDomains(this: ABURL, value: string[] | undefined) {
+  this.options.subDomains = value
+}
+
+function setFragment(this: ABURL, value: string | undefined) {
+  this.options.fragment = value
 }

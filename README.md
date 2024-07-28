@@ -106,6 +106,12 @@ type ABURL = {
   getDirectoriesFlat(): string
   getParams(): Record<string, string | number>
   getParamsFlat(): string
+  useHTTPS(value: boolean): void
+  useWWW(value: boolean): void
+  setPort(port: number | undefined): void
+  setAuth(value: { username: string; password: string } | undefined): void
+  setSubDomains(subDomains: string[] | undefined): void
+  setFragment(fragment: string | undefined): void
   options: Options
 }
 ```
@@ -120,4 +126,10 @@ type ABURL = {
 - `getDirectoriesFlat()` - Returns a string that represents the directories in the URL.
 - `getParams()` - Returns an object that contains key-value pairs that represent the URL parameters.
 - `getParamsFlat()` - Returns a string that represents the URL parameters.
+- `useHTTPS(value: boolean)` - Sets the URL to use HTTPS or HTTP.
+- `useWWW(value: boolean)` - Sets the URL to use `www` or not.
+- `setPort(port: number | undefined)` - Sets the port number.
+- `setAuth(value: { username: string; password: string } | undefined)` - Sets the basic authentication.
+- `setSubDomains(subDomains: string[] | undefined)` - Sets the subdomains.
+- `setFragment(fragment: string | undefined)` - Sets the fragment.
 - `options` - The options object that was used to create the instance of `ABURL`.
