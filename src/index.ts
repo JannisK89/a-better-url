@@ -18,7 +18,7 @@ export type ABURL = {
   options: Options
 }
 
-type Options = {
+export type Options = {
   directories?: string[]
   params?: Record<string, string | number>
   encodeParams?: boolean

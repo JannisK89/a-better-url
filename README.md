@@ -133,3 +133,21 @@ type ABURL = {
 - `setSubDomains(subDomains: string[] | undefined)` - Sets the subdomains.
 - `setFragment(fragment: string | undefined)` - Sets the fragment.
 - `options` - The options object that was used to create the instance of `ABURL`.
+
+### parseURL(url: string): ABURL
+
+Takes a URL string and returns the URL as an ABURL object.
+
+#### url
+
+A string that represents a URL.
+
+##### Warning: This function does not support URLs strings with http authentication.
+
+#### Example
+
+```typescript
+const url =
+  'https://subDomain.example.com/api/v1/testing?firstName=John&lastName=Doe&age=25'
+const parsedURL = parseURL(url)
+```
