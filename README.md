@@ -151,3 +151,7 @@ const url =
   'https://subDomain.example.com/api/v1/testing?firstName=John&lastName=Doe&age=25'
 const parsedURL = parseURL(url)
 ```
+
+## Change Log
+
+0.2.0 - Added `parseURL` function

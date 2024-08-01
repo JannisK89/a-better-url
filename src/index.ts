@@ -1,3 +1,5 @@
+export { parseURL } from './parser'
+
 export type ABURL = {
   base: string
   url(): string

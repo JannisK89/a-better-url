@@ -5,7 +5,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "repository": {
     "url": "https://github.com/JannisK89/a-better-url"
   },
